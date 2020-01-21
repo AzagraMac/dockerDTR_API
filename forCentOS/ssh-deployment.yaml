@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ssh-master
+  namespace: procaudtr
+  labels:
+    app: openssh
+spec:
+  selector:
+    matchLabels:
+      app: openssh
+      role: cluster-admin
+      tier: backend
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: openssh 
+        role: cluster-admin
+        tier: backend
+    spec:
+      containers:
+      - name: master
+        image: URL_TO_DOCKER_IMAGE_PUBLISH:version
+        resources:
+          limits:
+             cpu: "1"
+          requests:
+             cpu: "100m"
+             memory: "100Mi"
+        ports:
+        - containerPort: 22

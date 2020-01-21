@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ssh-service
+  namespace: procaudtr
+  labels:
+    app: openssh
+    role: cluster-admin
+    tier: backend
+spec:
+  ports:
+  - port: 22
+    targetPort: 22
+    nodePort: 30022
+  type: LoadBalancer
+  selector:
+    app: openssh
+    role: cluster-admin
+    tier: backend
